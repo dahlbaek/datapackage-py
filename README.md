@@ -19,7 +19,7 @@ A library for working with [Data Packages](http://specs.frictionlessdata.io/data
 
 ### Installation
 
-The package use semantic versioning. It means that major versions  could include breaking changes. It's highly recommended to specify `datapackage` version range in your `setup/requirements` file e.g. `datapackage>=1.0,<2.0`.
+The package uses semantic versioning. This means that major versions may include breaking changes. It is highly recommended to specify `datapackage` version range in your `setup/requirements` file e.g. `datapackage>=1.0,<2.0`.
 
 ```bash
 $ pip install datapackage
@@ -27,7 +27,7 @@ $ pip install datapackage
 
 ### Examples
 
-Code examples in this readme requires Python 3.3+ interpreter. You could see even more example in [examples](https://github.com/frictionlessdata/datapackage-py/tree/master/examples) directory.
+Code examples in this readme require Python 3.3+ interpreter. You may find more examples in [examples](https://github.com/frictionlessdata/datapackage-py/tree/master/examples) directory.
 
 ```python
 from datapackage import Package
@@ -40,9 +40,9 @@ package.getResource('resource').read()
 
 ### Package
 
-A class for working with data packages. It provides various capabilities like loading local or remote data package, inferring a data package descriptor, saving a data package descriptor and many more.
+A class for working with data packages. It provides various capabilities such as loading local or remote data package, inferring a data package descriptor or saving a data package descriptor.
 
-Consider we have some local csv files in a `data` directory. Let's create a data package based on this data using a `Package` class:
+Suppose we have some local csv files in a `data` directory. Let us create a data package based on this data using a `Package` class:
 
 > data/cities.csv
 
@@ -62,13 +62,13 @@ paris,2017,2240000
 rome,2017,2860000
 ```
 
-First we create a blank data package:
+First, we create a blank data package:
 
 ```python
 package = Package()
 ```
 
-Now we're ready to infer a data package descriptor based on data files we have. Because we have two csv files we use glob pattern `**/*.csv`:
+Now, we are ready to infer a data package descriptor based on data files we have. Because we have two csv files, we use the glob pattern `**/*.csv`:
 
 ```python
 package.infer('**/*.csv')
@@ -91,7 +91,7 @@ package.descriptor
 #       schema: [Object] } ] }
 ```
 
-An `infer` method has found all our files and inspected it to extract useful metadata like profile, encoding, format, Table Schema etc. Let's tweak it a little bit:
+The `infer` method has found all our files and inspected them to extract useful metadata like profile, encoding, format, Table Schema etc. Let us tweak it a little bit:
 
 ```python
 package.descriptor['resources'][1]['schema']['fields'][1]['type'] = 'year'
@@ -99,7 +99,7 @@ package.commit()
 package.valid # true
 ```
 
-Because our resources are tabular we could read it as a tabular data:
+Because our resources are tabular we can read it as tabular data:
 
 ```python
 package.get_resource('population').read(keyed=True)
@@ -108,20 +108,20 @@ package.get_resource('population').read(keyed=True)
 #  { city: 'rome', year: 2017, population: 2860000 } ]
 ```
 
-Let's save our descriptor on the disk as a zip-file:
+Let us save our descriptor on the disk as a zip-file:
 
 ```python
 package.save('datapackage.zip')
 ```
 
-To continue the work with the data package we just load it again but this time using local `datapackage.zip`:
+To continue working with the data package we just load it again but this time using local `datapackage.zip`:
 
 ```python
 package = Package('datapackage.zip')
 # Continue the work
 ```
 
-It was onle basic introduction to the `Package` class. To learn more let's take a look on `Package` class API reference.
+This was only a basic introduction to the `Package` class. To learn more let us take a look at the `Package` class API reference.
 
 #### `Package(descriptor=None, base_path=None, strict=False, storage=None, **options)`
 
@@ -137,11 +137,11 @@ Constructor to instantiate `Package` class.
 
 #### `package.valid`
 
-- `(bool)` - returns validation status. It always true in strict mode.
+- `(bool)` - returns validation status. Always true in strict mode.
 
 #### `package.errors`
 
-- `(Exception[])` - returns validation errors. It always empty in strict mode.
+- `(Exception[])` - returns validation errors. Always empty in strict mode.
 
 #### `package.profile`
 
@@ -168,7 +168,7 @@ Get data package resource by name.
 
 #### `package.add_resource(descriptor)`
 
-Add new resource to data package. The data package descriptor will be validated  with newly added resource descriptor.
+Add new resource to data package. The data package descriptor will be validated with the newly added resource descriptor.
 
 - `descriptor (dict)` - data resource descriptor
 - `(exceptions.DataPackageException)` - raises error if something goes wrong
@@ -176,7 +176,7 @@ Add new resource to data package. The data package descriptor will be validated 
 
 #### `package.remove_resource(name)`
 
-Remove data package resource by name. The data package descriptor will be validated after resource descriptor removal.
+Remove data package resource by name. The data package descriptor will be validated after the resource descriptor removal.
 
 - `name (str)` - data resource name
 - `(exceptions.DataPackageException)` - raises error if something goes wrong
@@ -187,7 +187,7 @@ Remove data package resource by name. The data package descriptor will be valida
 
 > Argument `pattern` works only for local files
 
-Infer a data package metadata. If `pattern` is not provided only existent resources will be inferred (added metadata like encoding, profile etc). If `pattern` is provided new resoures with file names mathing the pattern will be added and inferred. It commits changes to data package instance.
+Infer data package metadata. If `pattern` is not provided only already existing resources will have metadata inferred (encoding, profile etc). If `pattern` is provided, new resoures with file names mathing the pattern will be added and their metadata inferred. Commits changes to data package instance.
 
 - `pattern (str)` - glob pattern for new resources
 - `(dict)` - returns data package descriptor
@@ -215,15 +215,15 @@ package.name # renamed-package
 
 #### `package.save(target=None, storage=None, **options)`
 
-Saves this data package to storage if `storage` argument is passed or saves this data package's descriptor to json file if `target` arguments ends with `.json` or saves this data package to zip file otherwise.
+Saves data package to storage if `storage` argument is passed or saves data package's descriptor to json file if `target` arguments ends with `.json` or saves data package to zip file otherwise.
 
 - `target (string/filelike)` - the file path or a file-like object where the contents of this Data Package will be saved into.
 - `storage (str/tableschema.Storage)` - storage name like `sql` or storage instance
 - `options (dict)` - storage options to use for storage creation
-- `(exceptions.DataPackageException)` - raises if there was some error writing the package
+- `(exceptions.DataPackageException)` - raises error if there was some error writing the package
 - `(bool)` - return true on success
 
-It creates a zip file into ``file_or_path`` with the contents of this Data Package and its resources. Every resource which content lives in the local filesystem will be copied to the zip file. Consider the following Data Package descriptor:
+If `storage` argument is not passed and `target` argument does not end with `.json`, this methods creates a zip file into `target` with the contents of this Data Package and its resources. Every resource whose content lives in the local filesystem will be copied to the zip file. Consider the following Data Package descriptor:
 
 ```json
 {
@@ -243,13 +243,13 @@ The final structure of the zip file will be:
 ./data/local.csv
 ```
 
-With the contents of `datapackage.json` being the same as returned `datapackage.descriptor`. The resources' file names are generated based on their `name` and `format` fields if they exist. If the resource has no `name`, it'll be used `resource-X`, where `X` is the index of the resource in the `resources` list (starting at zero). If the resource has `format`, it'll be lowercased and appended to the `name`, becoming "`name.format`".
+With the contents of `datapackage.json` being the same as returned `datapackage.descriptor`. The resources' file names are generated based on their `name` and `format` fields if they exist. If the resource has no `name`, then `resource-X` will be used, where `X` is the index of the resource in the `resources` list (starting at zero). If the resource has `format`, it will be lower cased and appended to the `name`, becoming "`name.format`".
 
 ### Resource
 
 A class for working with data resources. You can read or iterate tabular resources using the `iter/read` methods and all resource as bytes using `row_iter/row_read` methods.
 
-Consider we have some local csv file. It could be inline data or remote link - all supported by `Resource` class (except local files for in-brower usage of course). But say it's `data.csv` for now:
+Suppose we have some local csv file. It could be inline data or remote link - all supported by `Resource` class (except local files for in-brower usage of course). But say it's `data.csv` for now:
 
 ```csv
 city,location
@@ -258,7 +258,7 @@ paris,"48.85,2.30"
 rome,N/A
 ```
 
-Let's create and read a resource. Because resource is tabular we could use `resource.read` method with a `keyed` option to get an array of keyed rows:
+Let us create and read a resource. Because resource is tabular we may use `resource.read` method with a `keyed` option to get an array of keyed rows:
 
 ```python
 resource = Resource({path: 'data.csv'})
@@ -272,7 +272,7 @@ resource.read(keyed=True)
 # ]
 ```
 
-As we could see our locations are just a strings. But it should be geopoints. Also Rome's location is not available but it's also just a `N/A` string instead of Python `None`. First we have to infer resource metadata:
+As we can see, our locations are just strings. But they should be geopoints. Also, Rome's location is not available but it is also just a `N/A` string instead of a Python `None` value. First we have to infer resource metadata:
 
 ```python
 resource.infer()
@@ -288,7 +288,7 @@ resource.read(keyed=True)
 # Fails with a data validation error
 ```
 
-Let's fix not available location. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `resource.descriptor.schema`. Resource descriptor could be changed in-place but all changes should be commited by `resource.commit()`:
+Let us fix unavailable location of Rome. There is a `missingValues` property in Table Schema specification. As a first try we set `missingValues` to `N/A` in `resource.descriptor.schema`. Resource descriptor could be changed in-place but all changes should be commited by `resource.commit()`:
 
 ```python
 resource.descriptor['schema']['missingValues'] = 'N/A'
@@ -298,7 +298,7 @@ resource.errors
 # [<ValidationError: "'N/A' is not of type 'array'">]
 ```
 
-As a good citiziens we've decided to check out recource descriptor validity. And it's not valid! We should use an array for `missingValues` property. Also don't forget to have an empty string as a missing value:
+As a good citizen we have decided to check out recource descriptor validity. And it is not valid! We should use an array for `missingValues` property. Also, do not forget to have an empty string as a missing value:
 
 ```python
 resource.descriptor['schema']['missingValues'] = ['', 'N/A']
@@ -306,7 +306,7 @@ resource.commit()
 resource.valid # true
 ```
 
-All good. It looks like we're ready to read our data again:
+All good. It looks like we are ready to read our data again:
 
 ```python
 resource.read(keyed=True)
@@ -321,13 +321,13 @@ Now we see that:
 - locations are arrays with numeric lattide and longitude
 - Rome's location is a native JavaScript `null`
 
-And because there are no errors on data reading we could be sure that our data is valid againt our schema. Let's save our resource descriptor:
+And because there are no errors on data reading we can be sure that our data is valid against our schema. Let us save our resource descriptor:
 
 ```python
 resource.save('dataresource.json')
 ```
 
-Let's check newly-crated `dataresource.json`. It contains path to our data file, inferred metadata and our `missingValues` tweak:
+Let us check the newly-crated `dataresource.json`. It contains the path to our data file, inferred metadata and our `missingValues` tweak:
 
 ```json
 {
@@ -358,14 +358,14 @@ Let's check newly-crated `dataresource.json`. It contains path to our data file,
 }
 ```
 
-If we decide to improve it even more we could update the `dataresource.json` file and then open it again using local file name:
+If we decide to improve it further, we could update the `dataresource.json` file and then open it again using local file name:
 
 ```python
 resource = Resource('dataresource.json')
 # Continue the work
 ```
 
-It was onle basic introduction to the `Resource` class. To learn more let's take a look on `Resource` class API reference.
+This was only a basic introduction to the `Resource` class. To learn more let us take a look at the `Resource` class API reference.
 
 #### `Resource(descriptor={}, base_path=None, strict=False, storage=None, **options)`
 
@@ -381,11 +381,11 @@ Constructor to instantiate `Resource` class.
 
 #### `resource.valid`
 
-- `(bool)` - returns validation status. It always true in strict mode.
+- `(bool)` - returns validation status. Always true in strict mode.
 
 #### `resource.errors`
 
-- `(Exception[])` - returns validation errors. It always empty in strict mode.
+- `(Exception[])` - returns validation errors. Always empty in strict mode.
 
 #### `resource.profile`
 
@@ -448,7 +448,7 @@ Iter through the table data and emits rows cast based on table schema (async for
 - `keyed (bool)` - iter keyed rows
 - `extended (bool)` - iter extended rows
 - `cast (bool)` - disable data casting if false
-- `relations (bool)` - if true foreign key fields will be checked and resolved to its references
+- `relations (bool)` - if true, foreign key fields will be checked and resolved to its references
 - `(exceptions.DataPackageException)` - raises any error occured in this process
 - `(any[]/any{})` - yields rows:
   - `[value1, value2]` - base
@@ -473,7 +473,7 @@ Read the whole table and returns as array of rows. Count of rows could be limite
 
 > Only for tabular resources
 
-It checks foreign keys and raises an exception if there are integrity issues.
+Checks foreign keys and raises an exception if there are integrity issues.
 
 - `(exceptions.RelationError)` - raises if there are integrity issues
 - `(bool)` - returns True if no issues
@@ -617,9 +617,9 @@ Infer a data package descriptor.
 
 ### Foreign Keys
 
-The library supports foreign keys described in the [Table Schema](http://specs.frictionlessdata.io/table-schema/#foreign-keys) specification. It means if your data package descriptor use `resources[].schema.foreignKeys` property for some resources a data integrity will be checked on reading operations.
+The library supports foreign keys described in the [Table Schema](http://specs.frictionlessdata.io/table-schema/#foreign-keys) specification. This means that if your data package descriptor uses `resources[].schema.foreignKeys` property for some resources a data integrity will be checked on reading operations.
 
-Consider we have a data package:
+Suppose we have a data package:
 
 ```python
 DESCRIPTOR = {
@@ -657,7 +657,7 @@ DESCRIPTOR = {
 }
 ```
 
-Let's check relations for a `teams` resource:
+Let us check relations for a `teams` resource:
 
 ```python
 from datapackage import Package
@@ -668,7 +668,7 @@ teams.check_relations()
 # tableschema.exceptions.RelationError: Foreign key "['city']" violation in row "4"
 ```
 
-As we could see there is a foreign key violation. That's because our lookup table `cities` doesn't have a city of `Munich` but we have a team from there. We need to fix it in `cities` resource:
+As we can see, there is a foreign key violation. That is because our lookup table `cities` does not have a city of `Munich` but we have a team from there. We need to fix it in `cities` resource:
 
 ```python
 package.descriptor['resources'][1]['data'].append(['Munich', 'Germany'])
@@ -678,7 +678,7 @@ teams.check_relations()
 # True
 ```
 
-Fixed! But not only a check operation is available. We could use `relations` argument for `resource.iter/read` methods to dereference a resource relations:
+Fixed! But not only a check operation is available. We can use `relations` argument for `resource.iter/read` method to dereference a resource relations:
 
 ```python
 teams.read(keyed=True, relations=True)
@@ -687,13 +687,13 @@ teams.read(keyed=True, relations=True)
 # {'id': 3, 'name': 'Bayern', 'city': {'name': 'Munich', 'country': 'Germany}}]
 ```
 
-Instead of plain city name we've got a dictionary containing a city data. These `resource.iter/read` methods will fail with the same as `resource.check_relations` error if there is an integrity issue. But only if `relations=True` flag is passed.
+Instead of plain city name we have got a dictionary containing city data. These `resource.iter/read` methods will fail with the same as `resource.check_relations` error if there is an integrity issue. But only if `relations=True` flag is passed.
 
 ### Exceptions
 
 #### `exceptions.DataPackageException`
 
-Base class for all library exceptions. If there are multiple errors it could be read from an exceptions object:
+Base class for all library exceptions. Errors can be read from an exceptions object:
 
 ```python
 try:
@@ -726,7 +726,7 @@ All storage errors.
 
 ### CLI
 
-> It's a provisional API. If you use it as a part of other program please pin concrete `datapackage` version to your requirements file.
+> It is a provisional API. If you use it as a part of another program please pin concrete `datapackage` version to your requirements file.
 
 The library ships with a simple CLI:
 
@@ -774,9 +774,9 @@ To run tests with linting and coverage:
 $ make test
 ```
 
-For linting `pylama` configured in `pylama.ini` is used. On this stage it's already
+For linting `pylama` configured in `pylama.ini` is used. At this point, it is already
 installed into your environment and could be used separately with more fine-grained control
-as described in documentation - https://pylama.readthedocs.io/en/latest/.
+as described in the [documentation](https://pylama.readthedocs.io/en/latest/).
 
 For example to sort results by error type:
 
@@ -785,9 +785,9 @@ $ pylama --sort <path>
 ```
 
 For testing `tox` configured in `tox.ini` is used.
-It's already installed into your environment and could be used separately with more fine-grained control as described in documentation - https://testrun.org/tox/latest/.
+It is already installed into your environment and could be used separately with more fine-grained control as described in the [documentation](https://testrun.org/tox/latest/).
 
-For example to check subset of tests against Python 2 environment with increased verbosity.
+For example to check a subset of tests against a Python 2 environment with increased verbosity.
 All positional arguments and options after `--` will be passed to `py.test`:
 
 ```bash
@@ -814,7 +814,7 @@ Here is a list of the library contributors:
 
 ## Changelog
 
-Here described only breaking and the most important changes. The full changelog and documentation for all released versions could be found in nicely formatted [commit history](https://github.com/frictionlessdata/datapackage-py/commits/master).
+Described here are only the most important changes and breaking changes. The full changelog and documentation for all released versions may be found in a nicely formatted [commit history](https://github.com/frictionlessdata/datapackage-py/commits/master).
 
 ### v1.2
 
